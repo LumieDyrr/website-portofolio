@@ -8,7 +8,7 @@ function Tools() {
       <div className='tools-box mt-10 grid grid-cols-4 gap-4 m-10'>
         {listTools.map((tool) => {
           return (
-            <div className='flex items-center gap-2 p-3 border border-zinc-400 rounded-md hover:bg-zinc-700 group' key={tool.id}>
+            <div className='flex items-center gap-2 p-3 border border-zinc-400 rounded-md hover:bg-zinc-700 group ' key={tool.id}>
               <img src={tool.gambar} alt='Tools Image' className='w-14 bg-zinc-700 p-1 group-hover:bg-zinc-900' />
               <div>
                 <h1>{tool.nama}</h1>
