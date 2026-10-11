@@ -1,110 +1,75 @@
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react'
+
+const socialLinks = [
+  { icon: Github, href: 'https://github.com/LumieDyrr', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/muhammad-adha-alfaridzi', label: 'LinkedIn' },
+  { icon: Mail, href: 'mailto:muhammadadhaanbu@gmail.com', label: 'Email' },
+]
+
+const quickLinks = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skill' },
+  { id: 'contact', label: 'Contact' },
+]
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  const socialLinks = [
-    {
-      icon: Github,
-      href: '#https://github.com/LumieDyrr',
-      label: 'GitHub'
-    },
-    {
-      icon: Linkedin,
-      href: '#',
-      label: 'LinkedIn'
-    },
-    {
-      icon: Mail,
-      href: '#',
-      label: 'Email'
-    }
-  ];
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const currentYear = new Date().getFullYear()
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <footer className="bg-background border-t border-border/50">
-      <div className="container mx-auto px-6 py-12">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Brand */}
-            <div className="space-y-4">
-              <div className="text-2xl font-bold gradient-text">
-                Portfolio
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Apa itu website bagus!! yang penting logic aplikasinya jalan EAAAA!!!
-              </p>
-            </div>
+    <footer className="border-t border-line/60">
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="space-y-4">
+            <div className="font-display text-2xl text-go">Portfolio</div>
+            <p className="leading-relaxed text-mist">
+              Apa itu website bagus!! yang penting logic aplikasinya jalan EAAAA!!!
+            </p>
+          </div>
 
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Quick Links</h3>
-              <div className="space-y-2">
-                {['Home', 'About', 'Projects', 'Contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => {
-                      const element = document.getElementById(item.toLowerCase());
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }}
-                    className="block text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Let's Connect</h3>
-              <div className="flex space-x-4">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="p-2 rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200"
-                    aria-label={link.label}
-                  >
-                    <link.icon size={20} />
-                  </a>
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Always open to discussing new opportunities and interesting projects.
-              </p>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Quick Links</h3>
+            <div className="space-y-2">
+              {quickLinks.map(({ id, label }) => (
+                <a key={id} href={`#${id}`} className="block text-mist transition-colors hover:text-foam">
+                  {label}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="text-muted-foreground text-sm">
-              © {currentYear} Modern Developer. All rights reserved.
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Let's Connect</h3>
+            <div className="flex gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-panel p-2 text-mist transition-all duration-200 hover:-translate-y-1 hover:bg-go hover:text-ink"
+                  aria-label={link.label}
+                >
+                  <link.icon size={20} />
+                </a>
+              ))}
             </div>
-
-            <div className="flex items-center space-x-1 text-muted-foreground text-sm">
-              <span>Made with</span>
-              <Heart size={16} className="text-red-500 fill-current animate-pulse" />
-              <span>using React & Tailwind CSS</span>
-            </div>
-
-            <button
-              onClick={scrollToTop}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              Back to top ↑
-            </button>
+            <p className="text-sm text-mist">
+              Always open to discussing new opportunities and interesting projects.
+            </p>
           </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-line/60 pt-8 md:flex-row">
+          <div className="text-sm text-mist">© {currentYear} Muhammad Adha Alfaridzi. All rights reserved.</div>
+          <button onClick={scrollToTop} className="text-sm text-mist transition-colors hover:text-foam">
+            Back to top ↑
+          </button>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

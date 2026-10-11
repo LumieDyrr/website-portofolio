@@ -1,50 +1,113 @@
-import Image from "../data/allData.js"
+import Image from '../data/allData.js'
+import Reveal from './reveal'
+import useInView from '../hooks/useInView'
+
+// Isi kartu respons API, diambil dari data yang sudah ada di website.
+const rows = [
+  ['name', 'Muhammad Adha Alfaridzi', 's'],
+  ['university', 'Universitas Pamulang', 's'],
+  ['major', 'Teknik Informatika', 's'],
+  ['semester', 7, 'n'],
+  ['focus', 'Back-end Development', 's'],
+  ['stack', ['Go', 'TypeScript', 'Node.js', 'React'], 'a'],
+  ['location', 'Tangerang', 's'],
+]
+
+const Str = ({ children }) => <span className="text-paper">"{children}"</span>
+
+function ApiCard() {
+  const [ref, seen] = useInView(0.35)
+  const step = 140
+  return (
+    <div
+      ref={ref}
+      className={`${seen ? 'is-in' : ''} rounded-2xl border border-line bg-panel/70 shadow-2xl shadow-black/30 backdrop-blur`}
+    >
+      <div className="flex items-center justify-between border-b border-line px-5 py-3 font-mono text-sm">
+        <span className="text-mist">GET /adha</span>
+        <span className="ok-badge rounded-md bg-green-400/15 px-2 py-0.5 text-green-400" style={{ '--d': `${rows.length * step + 200}ms` }}>
+          200 OK
+        </span>
+      </div>
+      <pre className="overflow-x-auto px-5 py-5 font-mono text-sm leading-7 sm:text-[15px]">
+        <code>
+          <span className="text-mist">{'{'}</span>
+          {rows.map(([key, val, type], i) => (
+            <span key={key} className="code-line block pl-5" style={{ '--d': `${(i + 1) * step}ms` }}>
+              <span className="text-foam">"{key}"</span>
+              <span className="text-mist">: </span>
+              {type === 's' && <Str>{val}</Str>}
+              {type === 'n' && <span className="text-go">{val}</span>}
+              {type === 'a' && (
+                <>
+                  <span className="text-mist">[</span>
+                  {val.map((v, j) => (
+                    <span key={v}>
+                      <Str>{v}</Str>
+                      {j < val.length - 1 && <span className="text-mist">, </span>}
+                    </span>
+                  ))}
+                  <span className="text-mist">]</span>
+                </>
+              )}
+              {i < rows.length - 1 && <span className="text-mist">,</span>}
+            </span>
+          ))}
+          <span className="text-mist">{'}'}</span> <span className="caret" aria-hidden="true" />
+        </code>
+      </pre>
+    </div>
+  )
+}
+
 function Profile() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center m-10" id="about">
-      {/* Kolom Teks */}
-      <div className="flex flex-col justify-center">
-        <h2 className="text-3xl font-bold mb-5">
-          Hi, Nama saya Muhammad Adha Alfaridzi
-        </h2>
-        <p className="text-xl opacity-50 mb-10">
-          Saya Mahasiswa Universitas Pamulang semester 5 program studi Teknik Informatika
-          yang memiliki ketertarikan pada bidang back-end Development, ketertarikan pada
-          bidang ini sudah berlangsung lebih dari 1 tahun.
-        </p>
-        <div>
-          <a
-            href="#"
-            className="inline-block font-semibold text-white bg-sky-500 rounded-2xl py-3 px-8 hover:opacity-80 transition duration-200 ease-in-out"
-          >
-            Hubungi saya
-          </a>
+    <>
+      {/* Hero */}
+      <section id="home" className="hero-glow relative flex min-h-screen items-center pt-24 pb-16">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="min-w-0">
+            <p className="enter mb-4 text-lg text-mist" style={{ '--d': '0ms' }}>Hi, nama saya</p>
+            <h1 className="font-display text-[clamp(2rem,5.2vw,3.9rem)] leading-[1.08]">
+              <span className="mask"><span style={{ '--d': '150ms' }}>Muhammad</span></span>
+              <span className="mask"><span style={{ '--d': '260ms' }}>Adha</span></span>
+              <span className="mask"><span style={{ '--d': '370ms' }}>Alfaridzi</span></span>
+            </h1>
+            <p className="enter mt-6 text-xl text-foam" style={{ '--d': '600ms' }}>Back-end Development</p>
+            <div className="enter mt-10 flex flex-wrap gap-4" style={{ '--d': '750ms' }}>
+              <a href="#contact" className="btn-go inline-block rounded-2xl bg-go px-8 py-3 font-semibold text-ink transition-colors">
+                Hubungi saya
+              </a>
+              <a href="#skills" className="inline-block rounded-2xl border border-line px-8 py-3 font-semibold transition-colors hover:border-go hover:text-foam">
+                Lihat skill
+              </a>
+            </div>
+          </div>
+
+          <div className="enter relative mx-auto w-full max-w-sm" style={{ '--d': '300ms' }}>
+            <div className="morph absolute inset-4 bg-gradient-to-br from-go to-foam opacity-80" aria-hidden="true" />
+            <img
+              src={Image.MuhammadAdha}
+              alt="Muhammad Adha Alfaridzi"
+              className="drift relative z-10 h-auto w-full drop-shadow-2xl"
+            />
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Kolom Gambar */}
-      <div className="flex justify-center items-center relative">
-        {/* SVG Background */}
-        <svg
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute w-96 h-96 -z-10"
-        >
-          <path
-            fill="#9EF0F0"
-            d="M54.7,-57.8C65.1,-44.4,63.5,-22.2,58.4,-5.1C53.3,12,44.6,24,34.3,32.5C24,41,12,46.1,-3.3,49.4C-18.6,52.7,-37.3,54.3,-49,45.8C-60.8,37.3,-65.7,18.6,-67.4,-1.7C-69.1,-22,-67.6,-44.1,-55.9,-57.5C-44.1,-70.9,-22,-75.7,0.1,-75.8C22.2,-75.9,44.4,-71.2,54.7,-57.8Z"
-            transform="translate(100 100)"
-          />
-        </svg>
-
-        {/* Profile Image */}
-        <img
-          src={Image.MuhammadAdha}
-          alt="Muhammad Adha Alfaridzi"
-          className="max-w-full h-auto rounded-lg shadow-lg relative z-10"
-        />
-      </div>
-    </div>
+      {/* Tentang */}
+      <section id="about" className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 lg:grid-cols-2">
+        <Reveal>
+          <h2 className="mb-6 font-display text-3xl">Tentang saya</h2>
+          <p className="text-lg leading-relaxed text-mist">
+            Saya Mahasiswa Universitas Pamulang semester 7 program studi Teknik Informatika
+            yang memiliki ketertarikan pada bidang back-end Development, ketertarikan pada
+            bidang ini sudah berlangsung lebih dari 1 tahun.
+          </p>
+        </Reveal>
+        <ApiCard />
+      </section>
+    </>
   )
 }
 

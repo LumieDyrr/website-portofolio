@@ -1,7 +1,1 @@
-@import "tailwindcss";
-
-@layer base {
-  body {
-    font-family: "Poppins", sans-serif;
-  }
-}
+/* Semua style global ada di index.css */

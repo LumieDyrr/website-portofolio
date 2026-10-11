@@ -1,24 +1,27 @@
-import React from 'react'
 import { listTools } from '../data/allData'
+import Reveal from './reveal'
+import { track } from '../hooks/spotlight'
 
 function Tools() {
   return (
-    <div className='tools mt-20 mb-10'>
-      <h1 className='text-3xl/snug font-bold mb-3 text-center' id='skills'>Tools yang dikuasai</h1>
-      <div className='tools-box mt-10 grid grid-cols-4 gap-4 m-10'>
-        {listTools.map((tool) => {
-          return (
-            <div className='flex items-center gap-2 p-3 border border-zinc-400 rounded-md hover:bg-zinc-700 group ' key={tool.id}>
-              <img src={tool.gambar} alt='Tools Image' className='w-14 bg-zinc-700 p-1 group-hover:bg-zinc-900' />
+    <section id="skills" className="mx-auto max-w-6xl px-6 py-24">
+      <Reveal>
+        <h1 className="text-center font-display text-3xl">Tools yang dikuasai</h1>
+      </Reveal>
+      <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {listTools.map((tool, i) => (
+          <Reveal key={tool.id} delay={(i % 4) * 90}>
+            <div onMouseMove={track} className="spot flex items-center gap-4 rounded-xl border border-line bg-panel/60 p-4">
+              <img src={tool.gambar} alt={tool.nama} className="w-14 rounded-lg bg-white/10 p-2" />
               <div>
-                <h1>{tool.nama}</h1>
-                <p>{tool.ket}</p>
+                <h2 className="font-semibold">{tool.nama}</h2>
+                <p className="text-sm text-mist">{tool.ket}</p>
               </div>
             </div>
-          )
-        })}
+          </Reveal>
+        ))}
       </div>
-    </div>
+    </section>
   )
 }
 

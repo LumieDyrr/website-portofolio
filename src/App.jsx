@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import Navigation from './components/navigation'
 import Profile from './components/aboutMe'
 import './App.css'
@@ -9,11 +8,13 @@ import ContactSection from './components/contact'
 function App() {
   return (
     <>
-      <Navigation></Navigation>
-      <Profile></Profile>
-      <Tools></Tools>
-      <ContactSection></ContactSection>
-      <Footer></Footer>
+      <Navigation />
+      <main>
+        <Profile />
+        <Tools />
+        <ContactSection />
+      </main>
+      <Footer />
     </>
   )
 }
